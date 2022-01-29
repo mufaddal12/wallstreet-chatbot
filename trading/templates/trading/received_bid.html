@@ -1,8 +1,7 @@
 {%load static%}
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Welcome to Wallstreet!</title>
@@ -10,149 +9,155 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="all,follow" />
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{% static 'bazaar/vendor/bootstrap/css/bootstrap.min.css'%}" />
+    <link
+      rel="stylesheet"
+      href="{% static 'trading/vendor/bootstrap/css/bootstrap.min.css'%}"
+    />
     <!-- orion icons-->
-    <link rel="stylesheet" href="{% static 'bazaar/css/orionicons.css'%}" />
+    <link rel="stylesheet" href="{% static 'trading/css/orionicons.css'%}" />
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{% static 'bazaar/css/style.default.css'%}" id="theme-stylesheet" />
+    <link
+      rel="stylesheet"
+      href="{% static 'trading/css/style.default.css'%}"
+      id="theme-stylesheet"
+    />
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{% static 'bazaar/css/custom.css'%}" />
+    <link rel="stylesheet" href="{% static 'trading/css/custom.css'%}" />
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{% static 'bazaar/img/favicon.png'%}" />
+    <link rel="shortcut icon" href="{% static 'trading/img/favicon.png'%}" />
 
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+      integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+      crossorigin="anonymous"
+    />
     <!-- Google fonts - Popppins for copy-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Poppins:300,400,800"
+    />
 
     <style type="text/css">
-        .page-holder {
-            background: url("{% static 'bazaar/img/1.png'%}");
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
-        
-        .card {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        
-        .text-grayp {
-            color: white;
-            font-size: 1.1rem;
-        }
-        
-        .c-container {
-            position: relative;
-            width: 200px;
-            .c-text {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                color: white;
-                font-size: 30px;
-                line-height: 30px;
-                top: 50%;
-                margin-top: -15px;
-            }
-            svg {
-                width: 100%;
-            }
-        }
-        
-        @import "compass/css3";
-        .wrapper {
-            position: relative;
-            margin: 40px auto;
-            background: white;
-        }
-        
-        @mixin timer($item,
-        $duration,
-        $size,
-        $color,
-        $border,
-        $hover: running) {
-            #{$item},
-            #{$item} * {
-                @include box-sizing(border-box);
-            }
-            #{$item} {
-                width: $size;
-                height: $size;
-            }
-            #{$item} .pie {
-                width: 50%;
-                height: 100%;
-                transform-origin: 100% 50%;
-                position: absolute;
-                background: $color;
-                border: #{$border};
-            }
-            #{$item} .spinner {
-                border-radius: 100% 0 0 100% / 50% 0 0 50%;
-                z-index: 200;
-                border-right: none;
-                animation: rota $duration + s linear infinite;
-            }
-            #{$item}:hover .spinner,
-            #{$item}:hover .filler,
-            #{$item}:hover .mask {
-                animation-play-state: $hover;
-            }
-            #{$item} .filler {
-                border-radius: 0 100% 100% 0 / 0 50% 50% 0;
-                left: 50%;
-                opacity: 0;
-                z-index: 100;
-                animation: opa $duration + s steps(1, end) infinite reverse;
-                border-left: none;
-            }
-            #{$item} .mask {
-                width: 50%;
-                height: 100%;
-                position: absolute;
-                background: inherit;
-                opacity: 1;
-                z-index: 300;
-                animation: opa $duration + s steps(1, end) infinite;
-            }
-            @keyframes rota {
-                0% {
-                    transform: rotate(0deg);
-                }
-                100% {
-                    transform: rotate(360deg);
-                }
-            }
-            @keyframes opa {
-                0% {
-                    opacity: 1;
-                }
-                50%,
-                100% {
-                    opacity: 0;
-                }
-            }
-        }
-        
-        @include timer(".wrapper",
-        5,
-        250px,
-        #08c,
-        "5px solid rgba(0,0,0,0.5)");
-    </style>
-</head>
+      .page-holder {
+        background: url("{% static 'trading/img/1.png'%}");
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
 
-<body>
+      .card {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .text-grayp {
+        color: white;
+        font-size: 1.1rem;
+      }
+
+      .c-container {
+        position: relative;
+        width: 200px;
+        .c-text {
+          position: absolute;
+          width: 100%;
+          text-align: center;
+          color: white;
+          font-size: 30px;
+          line-height: 30px;
+          top: 50%;
+          margin-top: -15px;
+        }
+        svg {
+          width: 100%;
+        }
+      }
+
+      @import "compass/css3";
+      .wrapper {
+        position: relative;
+        margin: 40px auto;
+        background: white;
+      }
+
+      @mixin timer($item, $duration, $size, $color, $border, $hover: running) {
+        #{$item},
+        #{$item} * {
+          @include box-sizing(border-box);
+        }
+        #{$item} {
+          width: $size;
+          height: $size;
+        }
+        #{$item} .pie {
+          width: 50%;
+          height: 100%;
+          transform-origin: 100% 50%;
+          position: absolute;
+          background: $color;
+          border: #{$border};
+        }
+        #{$item} .spinner {
+          border-radius: 100% 0 0 100% / 50% 0 0 50%;
+          z-index: 200;
+          border-right: none;
+          animation: rota $duration + s linear infinite;
+        }
+        #{$item}:hover .spinner,
+        #{$item}:hover .filler,
+        #{$item}:hover .mask {
+          animation-play-state: $hover;
+        }
+        #{$item} .filler {
+          border-radius: 0 100% 100% 0 / 0 50% 50% 0;
+          left: 50%;
+          opacity: 0;
+          z-index: 100;
+          animation: opa $duration + s steps(1, end) infinite reverse;
+          border-left: none;
+        }
+        #{$item} .mask {
+          width: 50%;
+          height: 100%;
+          position: absolute;
+          background: inherit;
+          opacity: 1;
+          z-index: 300;
+          animation: opa $duration + s steps(1, end) infinite;
+        }
+        @keyframes rota {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+        @keyframes opa {
+          0% {
+            opacity: 1;
+          }
+          50%,
+          100% {
+            opacity: 0;
+          }
+        }
+      }
+
+      @include timer(".wrapper", 5, 250px, #08c, "5px solid rgba(0,0,0,0.5)");
+    </style>
+  </head>
+
+  <body>
     <!-- navbar-->
     <header class="header">
-        <nav class="navbar sticky-top navbar-expand-lg px-4 py-2 bg-white shadow">
-            <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"><i class="fas fa-align-left"></i></a
-        >
-<img src = "{% static "bazaar/img/cs.png" %}" height="20">  
-<a
+      <nav class="navbar sticky-top navbar-expand-lg px-4 py-2 bg-white shadow">
+        <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead"
+          ><i class="fas fa-align-left"></i
+        ></a>
+        <a
           href="#"
           class="navbar-brand font-weight-bold text-uppercase text-base"
           >Wallstreet</a
@@ -169,7 +174,10 @@
               ><i class="fa fa-bell"></i><span class="notification-icon"></span
             ></a>
             <div aria-labelledby="notifications" class="dropdown-menu">
-                <a href="{% url 'bazaar:news' %}" class="dropdown-item text-center"><small
+              <a
+                href="{% url 'trading:news' %}"
+                class="dropdown-item text-center"
+                ><small
                   class="font-weight-bold headings-font-family text-uppercase"
                   >View News</small
                 ></a
@@ -185,17 +193,17 @@
               aria-expanded="false"
               class="nav-link dropdown-toggle"
               ><img
-                src="{% static 'bazaar/img/navLogo.png' %}"
+                src="{% static 'trading/img/navLogo.png' %}"
                 alt="Jason Doe"
-                style="max-width: 1.5rem;"
+                style="max-width: 1.5rem"
                 class="img-fluid rounded-circle shadow"
             /></a>
-                <div aria-labelledby="userInfo" class="dropdown-menu">
-                    <a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">{{
-                  profile.user.username
-                }}</strong
-                ><small>Cash: {{ profile.cash }}</small
-                ><br /><small>Net Worth: {{ profile.netWorth }}</small
+            <div aria-labelledby="userInfo" class="dropdown-menu">
+              <a href="#" class="dropdown-item"
+                ><strong class="d-block text-uppercase headings-font-family"
+                  >{{ profile.user.username }}</strong
+                ><small>Cash: {{ profile.cash }}</small><br /><small
+                  >Net Worth: {{ profile.netWorth }}</small
                 ><br /><small>Rank: {{ profile.rank }}</small></a
               >
               <div class="dropdown-divider"></div>
@@ -203,34 +211,32 @@
                 >Your Shares</a
               >
               <div class="dropdown-divider"></div>
-              <a href="{% url 'bazaar:transactions' %}" class="dropdown-item"
+              <a href="{% url 'trading:transactions' %}" class="dropdown-item"
                 >Transaction History</a
               >
               <div class="dropdown-divider"></div>
-              <a href="{%url 'bazaar:logoff'%}" class="dropdown-item">Logout</a>
-                </div>
-                </li>
-                </ul>
-        </nav>
+              <a href="{%url 'trading:logoff'%}" class="dropdown-item"
+                >Logout</a
+              >
+            </div>
+          </li>
+        </ul>
+      </nav>
     </header>
     <div class="d-flex align-items-stretch">
-        <div id="sidebar" class="sidebar py-3">
-            <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">
-                MAIN
-            </div>
-            <ul class="sidebar-menu list-unstyled" style="margin-left:-15px;">
-                <li class="sidebar-list-item">
-                    <a href="{%url 'bazaar:index' %}" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a
-            >
-          </li>
+      <div id="sidebar" class="sidebar py-3">
+        <div
+          class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family"
+        >
+          MAIN
+        </div>
+        <ul class="sidebar-menu list-unstyled" style="margin-left: -15px">
           <li class="sidebar-list-item">
-            <a
-              href="{% static 'bazaar/Wallstreet_Portfolios.pdf' %}"
-              class="sidebar-link text-muted"
-              ><i class="o-table-content-1 mr-3 text-gray"></i
-              ><span>Company Info</span></a
+            <a href="{%url 'trading:index' %}" class="sidebar-link text-muted"
+              ><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a
             >
           </li>
+
           <li class="sidebar-list-item">
             <a href="../#sectionMyShares" class="sidebar-link text-muted"
               ><i class="o-table-content-1 mr-3 text-gray"></i
@@ -238,39 +244,25 @@
             >
           </li>
           <li class="sidebar-list-item">
-            <a href="{%url 'bazaar:buy' %}" class="sidebar-link text-muted"
+            <a href="{%url 'trading:buy' %}" class="sidebar-link text-muted"
               ><i class="o-sales-up-1 mr-3 text-gray"></i><span>Buy</span></a
             >
           </li>
           <li class="sidebar-list-item">
-            <a href="{%url 'bazaar:sell' %}" class="sidebar-link text-muted"
+            <a href="{%url 'trading:sell' %}" class="sidebar-link text-muted"
               ><i class="o-sales-up-1 mr-3 text-gray"></i><span>Sell</span></a
             >
           </li>
           <li class="sidebar-list-item">
-            <a href="{%url 'bazaar:news' %}" class="sidebar-link text-muted"
-              ><i class="o-table-content-1 mr-3 text-gray"></i
-              ><span>News</span></a
-            >
-          </li>
-          <li class="sidebar-list-item">
             <a
-              href="{%url 'bazaar:transactions' %}"
+              href="{%url 'trading:transactions' %}"
               class="sidebar-link text-muted"
               ><i class="o-table-content-1 mr-3 text-gray"></i
               ><span>Transactions</span></a
             >
           </li>
           <li class="sidebar-list-item">
-            <a
-              href="{%url 'bazaar:leaderboard' %}"
-              class="sidebar-link text-muted"
-              ><i class="o-survey-1 mr-3 text-gray"></i
-              ><span>Leaderboard</span></a
-            >
-          </li>
-          <li class="sidebar-list-item">
-            <a href="{%url 'bazaar:logoff'%}" class="sidebar-link text-muted"
+            <a href="{%url 'trading:logoff'%}" class="sidebar-link text-muted"
               ><i class="o-exit-1 mr-3 text-gray"></i><span>Logout</span></a
             >
           </li>
@@ -282,7 +274,7 @@
             <div class="row mb-4 d-flex align-items-center">
               <div class="col-lg-12 mb-4 mb-lg-0">
                 <div class="card">
-                  <div class="card-header" style="border-bottom-radius:5px;">
+                  <div class="card-header" style="border-bottom-radius: 5px">
                     <h2 class="h6 text-uppercase mb-0">
                       We Have Received Your Bid! Thank You! (Redirecting to Home
                       Page...)
@@ -311,19 +303,19 @@
     </div>
 
     <script>
-      setTimeout(function() {
+      setTimeout(function () {
         window.location.href = "/";
       }, 1500);
     </script>
 
     <!-- JavaScript files-->
-    <script src="{% static 'bazaar/vendor/jquery/jquery.min.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/popper.js/umd/popper.min.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/jquery.cookie/jquery.cookie.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/chart.js/Chart.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/popper.js/umd/popper.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/jquery.cookie/jquery.cookie.js'%}"></script>
+    <script src="{% static 'trading/vendor/chart.js/Chart.min.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="{% static 'bazaar/js/charts-home.js'%}"></script>
-    <script src="{% static 'bazaar/js/front.js'%}"></script>
+    <script src="{% static 'trading/js/charts-home.js'%}"></script>
+    <script src="{% static 'trading/js/front.js'%}"></script>
   </body>
 </html>

@@ -11,7 +11,7 @@
     <!-- Bootstrap CSS-->
     <link
       rel="stylesheet"
-      href="{% static 'bazaar/vendor/bootstrap/css/bootstrap.min.css'%}"
+      href="{% static 'trading/vendor/bootstrap/css/bootstrap.min.css'%}"
     />
     <!-- Font Awesome CSS-->
     <link
@@ -26,21 +26,21 @@
       href="https://fonts.googleapis.com/css?family=Poppins:300,400,800"
     />
     <!-- orion icons-->
-    <link rel="stylesheet" href="{% static 'bazaar/css/orionicons.css'%}" />
+    <link rel="stylesheet" href="{% static 'trading/css/orionicons.css'%}" />
     <!-- theme stylesheet-->
     <link
       rel="stylesheet"
-      href="{% static 'bazaar/css/style.default.css'%}"
+      href="{% static 'trading/css/style.default.css'%}"
       id="theme-stylesheet"
     />
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{% static 'bazaar/css/custom.css'%}" />
+    <link rel="stylesheet" href="{% static 'trading/css/custom.css'%}" />
     <!-- Favicon-->
-    <link rel="shortcut icon" href="{% static 'bazaar/img/favicon.png'%}" />
+    <link rel="shortcut icon" href="{% static 'trading/img/favicon.png'%}" />
 
     <style type="text/css">
       body {
-        background: url("{% static "bazaar/img/1.png"%}");
+        background: url("{% static "trading/img/1.png"%}");
         background-attachment: fixed;
         background-position: center;
         background-repeat: no-repeat;
@@ -52,33 +52,13 @@
 
   <body>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-6 text-left px-4 shadow-lg mt-2">
-          <img
-            src="{% static 'bazaar/img/pisb4.png' %}"
-            height="50"
-            width="150"
-          />
-        </div>
-        <div class="col-6 text-right px-4 shadow-lg mt-2">
-          <img
-            src="{% static 'bazaar/img/ieee_w.png' %}"
-            height="45"
-            width="150"
-          />
-        </div>
-      </div>
+      <div class="row"></div>
     </div>
 
     <div class="page-holder d-flex align-items-center">
       <div class="container">
         <div class="col-0 col-lg-0 mx-auto mb-5 mb-lg-0">
           <div class="row align-items-center py-5">
-            <div class="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
-              <div class="col-5 col-lg-7 mx-auto mb-5 mb-lg-0">
-                <img src="{% static 'bazaar/img/Clive.png' %}" height="220" id="mobile-adjusted-image"/>
-              </div>
-            </div>
             <div class="col-lg-5 px-lg-4">
               <h1 class="text-primary text-uppercase mt-6">Wallstreet</h1>
               <h2 style="color: white" class="mb-4">Welcome!</h2>
@@ -114,13 +94,13 @@
     </div>
 
     <!-- JavaScript files-->
-    <script src="{% static 'bazaar/vendor/jquery/jquery.min.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/popper.js/umd/popper.min.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/jquery.cookie/jquery.cookie.js'%}"></script>
-    <script src="{% static 'bazaar/vendor/chart.js/Chart.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/popper.js/umd/popper.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'trading/vendor/jquery.cookie/jquery.cookie.js'%}"></script>
+    <script src="{% static 'trading/vendor/chart.js/Chart.min.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="{% static 'bazaar/js/front.js'%}"></script>
+    <script src="{% static 'trading/js/front.js'%}"></script>
     {%endblock%}
   </body>
 </html>
