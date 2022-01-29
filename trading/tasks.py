@@ -29,58 +29,8 @@ import pytz
 # ToDo: WebSockets
 # ToDo: AWS hosting
 
-news = pd.read_csv("news.csv")
 buyTable = None
 sellTable = None
-
-
-@task()
-def LeaderBoardUpdateTask():
-    print("Leaderboard Task Called")
-    cashValuationPercent = 0.4  # Values for netWorth
-    shareValuationPercent = 0.6  # Values for netWorth
-
-    # Dictionary to store the company and sharePrice
-    companyStockPrices = {}
-
-    for i in Company.objects.all():
-        companyStockPrices[i.name] = i.sharePrice
-
-    # Calculate Net Worth
-    all_profiles = Profile.objects.all()  # Get all Profiles
-    for p in all_profiles:
-        # Calculate total value of shares
-        # shareValuation = 0
-        # shareTableEntries = UserShareTable.objects.filter(
-        #    profile=p)  # Get all user shares
-        # for entry in shareTableEntries:
-        #    shareValuation += companyStockPrices[
-        #        entry.company.name] * entry.bidShares
-
-        # p.netWorth = (cashValuationPercent * p.cash) + (
-        #    shareValuationPercent * shareValuation
-        # )  # Calculate net worth of user
-        p.save()
-
-    g = Global.objects.get(pk=1)  # Get Global Values
-    numberOfEntries = min(g.LeaderboardSize, len(all_profiles))  # Get number of entries for leaderboard
-    g.LeaderBoardUpdateTime = datetime.now()  # Set the latest leaderboard update time
-    g.save()
-
-    sorted_profiles = Profile.objects.all().order_by("-netWorth")
-
-    LeaderBoard.objects.all().delete()  # Empty leader board
-
-    for index, p in enumerate(sorted_profiles):
-        # Updating ranks of all users
-        profile = Profile.objects.get(pk=p.pk)
-        profile.rank = index + 1
-        profile.save()
-
-    for p in sorted_profiles[:numberOfEntries]:
-        # Add Entries to leader board
-        LeaderBoard.objects.create(profile=p)
-
 
 @task()
 def emptyBuyTableSellTableTask():
@@ -164,27 +114,3 @@ def emptyBuyTableSellTableTask():
                 userRevoke(sorted_sellTable[j], False)
                 sellTable.objects.get(pk=sorted_sellTable[j].pk).delete()
             j += 1
-
-
-@task()
-def spreadTask():
-    print("Spread Distribution Called")
-    profiles = {}
-    totalTransaction = 0
-    g = Global.objects.get(pk=1)
-    for p in Profile.objects.all():
-        profiles[p] = 0
-
-    for u in UserHistory.objects.all():
-        value = u.bidShares * u.bidPrice
-        totalTransaction += value
-
-        profiles[u.profile] += value
-
-    for p in Profile.objects.all():
-        spreadRatio = profiles[p] / totalTransaction
-        p.cash += spreadRatio * g.spread
-        p.save()
-
-    g.spread = 0
-    g.save()

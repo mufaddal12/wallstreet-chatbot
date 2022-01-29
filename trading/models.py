@@ -107,22 +107,6 @@ class SellTable(models.Model):
         default=datetime.now)  # Transaction Time
 
 
-class News(models.Model):
-    # Table to store news
-    title = models.CharField(max_length=50)
-    description = models.CharField(max_length=200)
-    time = models.DateTimeField(default=datetime.now)
-
-    def __str__(self):
-        return self.title
-
-
-class LeaderBoard(models.Model):
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.profile)
-
 
 try:
     for i in Company.objects.all():

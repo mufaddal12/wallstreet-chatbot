@@ -1,9 +1,0 @@
-/* your styles go here */
-@media screen and (max-width: 600px) {
-  #mobile-adjusted-image {
-    margin-left: -48vw;
-    width: 95vw;
-    height: auto;
-  }
-}
-

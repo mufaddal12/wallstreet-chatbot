@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 def setPointers(n):
     # n is the mnumber of bids for each company
     cnt = 1
-    from bazaar.models import Company
+    from trading.models import Company
 
     for i in Company.objects.all():
         i.buyStartPointer = cnt
@@ -29,7 +29,7 @@ def setCompanyTempName():
 
 
 def resetCash():
-    from bazaar.models import Profile
+    from trading.models import Profile
     for p in Profile.objects.all():
         p.cash = 200000
         p.save()
