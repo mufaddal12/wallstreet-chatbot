@@ -1,8 +1,7 @@
 env/
 venv/
-*/__pycache__/*
+*/__pycache*
 db.sqlite3
-trading/__pycache__/*
 static/*
 celerybeat-schedule
 */migrations/
