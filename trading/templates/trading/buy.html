@@ -52,14 +52,10 @@
         <a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Wallstreet</a>
             <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
-                <li class="nav-item dropdown mr-3"><a id="notifications" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle text-gray-400 px-1"><i class="fa fa-bell"></i><span class="notification-icon"></span></a>
-                    <div aria-labelledby="notifications" class="dropdown-menu">
-                        <a href="{% url 'trading:news' %}" class="dropdown-item text-center"><small class="font-weight-bold headings-font-family text-uppercase">View News</small></a>
-                    </div>
-                </li>
+                
                 <li class="nav-item dropdown ml-auto">
                     <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="{% static 'trading/img/navLogo.png' %}" alt="Jason Doe" style="max-width: 1.5rem;" class="img-fluid rounded-circle shadow"></a>
-                    <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">{{ profile.user.username }}</strong><small>Cash: {{ profile.cash }}</small><br/><small>Net Worth: {{ profile.netWorth }}</small><br/><small>Rank: {{ profile.rank }}</small></a>
+                    <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">{{ profile.user.username }}</strong><small>Cash: {{ profile.cash }}</small><br/><small>Net Worth: {{ profile.netWorth }}</small></a>
                         <div class="dropdown-divider"></div><a href="../#sectionMyShares" class="dropdown-item">Your Shares</a>
                         <div class="dropdown-divider"></div><a href="{% url 'trading:transactions' %}" class="dropdown-item">Transaction History</a>
                         <div class="dropdown-divider"></div><a href="{%url 'trading:logoff'%}" class="dropdown-item">Logout</a>
@@ -70,7 +66,6 @@
     </header>
     <div class="d-flex align-items-stretch">
         <div id="sidebar" class="sidebar py-3">
-            <div class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family">MAIN</div>
             <ul class="sidebar-menu list-unstyled" style="margin-left:-15px;">
                 <li class="sidebar-list-item"><a href="{%url 'trading:index' %}" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
                 <li class="sidebar-list-item"><a href="../#sectionMyShares" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Your Shares</span></a></li>

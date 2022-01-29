@@ -104,7 +104,6 @@ class postlogin(View):
         }
         return render(request, self.template, context)
 
-
 class Buy(View):
     template = 'trading/buy.html'
     error = 'trading/marketclose.html'

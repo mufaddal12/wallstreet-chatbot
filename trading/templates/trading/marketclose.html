@@ -173,16 +173,6 @@
               class="nav-link dropdown-toggle text-gray-400 px-1"
               ><i class="fa fa-bell"></i><span class="notification-icon"></span
             ></a>
-            <div aria-labelledby="notifications" class="dropdown-menu">
-              <a
-                href="{% url 'trading:news' %}"
-                class="dropdown-item text-center"
-                ><small
-                  class="font-weight-bold headings-font-family text-uppercase"
-                  >View News</small
-                ></a
-              >
-            </div>
           </li>
           <li class="nav-item dropdown ml-auto">
             <a
@@ -204,7 +194,7 @@
                   >{{ profile.user.username }}</strong
                 ><small>Cash: {{ profile.cash }}</small><br /><small
                   >Net Worth: {{ profile.netWorth }}</small
-                ><br /><small>Rank: {{ profile.rank }}</small></a
+                ></a
               >
               <div class="dropdown-divider"></div>
               <a href="../#sectionMyShares" class="dropdown-item"
@@ -224,12 +214,7 @@
       </nav>
     </header>
     <div class="d-flex align-items-stretch">
-      <div id="sidebar" class="sidebar py-3">
-        <div
-          class="text-gray-400 text-uppercase px-3 px-lg-4 py-4 font-weight-bold small headings-font-family"
-        >
-          MAIN
-        </div>
+      
         <ul class="sidebar-menu list-unstyled" style="margin-left: -15px">
           <li class="sidebar-list-item">
             <a href="{%url 'trading:index' %}" class="sidebar-link text-muted"
