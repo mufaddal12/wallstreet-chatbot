@@ -4,3 +4,6 @@ venv/
 db.sqlite3
 trading/__pycache__/*
 static/*
+celerybeat-schedule
+db.sqlite3
+    
