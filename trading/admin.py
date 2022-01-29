@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import *
+from trading.models import *
 
-#admin.site.register(<model>)
+admin.site.register(Profile)
+admin.site.register(Company)
+
 
