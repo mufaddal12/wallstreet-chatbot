@@ -17,13 +17,13 @@
 - `pip install -r requirements.txt`
 - `python manage.py makemigrations`
 - `python manage.py migrate`
-- `python manage.py makemigrations`
-- `python manage.py migrate`
-- `python manage.py collectstatic`
 - `python manage.py shell`
   - `from trading.utility import add_company`
   - `add_company("")`
   - `exit()`
+- `python manage.py makemigrations`
+- `python manage.py migrate`
+- `python manage.py collectstatic`
 - `python manage.py runserver`
 
 ### Terminal 2
