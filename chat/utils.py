@@ -1,3 +1,4 @@
+from trading.models import *
 buy_keywords = [
     "buy",
     "purchase",
@@ -20,4 +21,4 @@ buy_keywords = [
 
 sell_keywords = ["sell", "selling", "sold", "dena", "bechna", "bech,de"]
 
-company_name=[]
+company_name=[company.name.lower() for company in Company.objects.all()]
