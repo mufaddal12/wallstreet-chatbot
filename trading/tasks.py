@@ -102,14 +102,14 @@ def emptyBuyTableSellTableTask():
         # print("j: "+str(j)+" "+str(len(sorted_sellTable)))
         # print(sorted_sellTable)
         while i < len(sorted_buyTable):
-            if (current_time - sorted_buyTable[i].transactionTime).seconds >= 150:
+            if (current_time - sorted_buyTable[i].transactionTime).seconds >= 60:
                 # current_time.hour - sorted_buyTable[i].transactionTime.hour >= 1:
                 userRevoke(sorted_buyTable[i], True)
                 buyTable.objects.get(pk=sorted_buyTable[i].pk).delete()
             i += 1
 
         while j < len(sorted_sellTable):
-            if (current_time - sorted_sellTable[j].transactionTime).seconds >= 150:
+            if (current_time - sorted_sellTable[j].transactionTime).seconds >= 60:
                 # current_time.hour - sorted_sellTable[i].transactionTime.hour >= 1:
                 userRevoke(sorted_sellTable[j], False)
                 sellTable.objects.get(pk=sorted_sellTable[j].pk).delete()

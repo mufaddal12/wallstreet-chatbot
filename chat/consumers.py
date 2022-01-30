@@ -41,6 +41,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
         ):
             moneyAlter(profile1, share_bid_price * share_bid, False)  # Subtract money for user
             BuyTable.objects.create(company=company1, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
+            # match.delay(company1, profile1, share_bid_price, share_bid, True)
             return True
 
     else:
@@ -62,6 +63,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
             elif share_bid == u.bidShares:
                 u.delete()
             SellTable.objects.create(company=company1, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
+            
             return True
 
     return False
@@ -89,7 +91,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json["message"]
 
         # create message object for user who sends message
-        await create_message(message, int(self.room_name))
+        create_message(message, int(self.room_name))
 
         buy_sell = text_data_json["buy_sell"]  # 0
         company_name = text_data_json["company_name"]  # default
@@ -167,7 +169,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 message1 = "Do you want to buy or sell shares?"
 
         # create message object for admin for self-generated message
-        await create_message(message1, get_admin_id())
+        create_message(message1, get_admin_id())
 
         context = {
             "buy_sell": buy_sell,

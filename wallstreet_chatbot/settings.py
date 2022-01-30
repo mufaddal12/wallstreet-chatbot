@@ -81,7 +81,7 @@ CELERY_IMPORTS = ("trading.tasks",)
 CELERY_BEAT_SCHEDULE = {
     "task-emptyTables": {
         "task": "trading.tasks.emptyBuyTableSellTableTask",
-        "schedule": 1800,
+        "schedule": 60,
     },
 }
 
