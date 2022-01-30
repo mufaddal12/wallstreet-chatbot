@@ -9,6 +9,8 @@ import random
 from chat.utils import *
 from trading.matchUtilities import *
 
+buyTable = None
+sellTable = None
 
 @database_sync_to_async
 def IsCompany(company_name):
@@ -33,6 +35,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
     company1 = Company.objects.get(name__contains=company)
     profile1 = Profile.objects.get(user__id=user_id)
     if buy_sell == 1:
+        exec("global buyTable; buyTable = BuyTable_" + company1.tempName)
         if (
             0 < share_bid <= 100
             and share_bid_price > 0
@@ -40,7 +43,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
             and profile1.cash >= share_bid * share_bid_price * 1.01
         ):
             moneyAlter(profile1, share_bid_price * share_bid, False)  # Subtract money for user
-            BuyTable.objects.create(company=company1, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
+            buyTable.objects.create(company=company1.pk, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
             # match.delay(company1, profile1, share_bid_price, share_bid, True)
             return True
 
@@ -62,7 +65,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
                 u.save()
             elif share_bid == u.bidShares:
                 u.delete()
-            SellTable.objects.create(company=company1, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
+            sellTable.objects.create(company=company1, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
             
             return True
 
