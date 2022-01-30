@@ -70,7 +70,13 @@
                 <li class="sidebar-list-item"><a href="{%url 'trading:index' %}" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
                 <li class="sidebar-list-item"><a href="../#sectionMyShares" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Your Shares</span></a></li>
                 <li class="sidebar-list-item"><a href="{%url 'trading:buy' %}" class="sidebar-link text-muted active"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Buy</span></a></li>
+                
                 <li class="sidebar-list-item"><a href="{%url 'trading:sell' %}" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Sell</span></a></li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'chat:room' %}" class="sidebar-link text-muted"
+                      ><i class="far fa-comment mr-3 text-gray"></i><span>Chat</span></a
+                    >
+                  </li>
                 <li class="sidebar-list-item"><a href="{%url 'trading:transactions' %}" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Transactions</span></a></li>
 
                 <li class="sidebar-list-item"><a href="{%url 'trading:logoff'%}" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Logout</span></a></li>
