@@ -9,8 +9,17 @@
     <input id="chat-message-input" type="text" size="100"><br>
     <input id="chat-message-submit" type="button" value="Send">
     {{ room_name|json_script:"room-name" }}
+    {{ buy_sell|json_script:"buy_sell" }}
+    {{ company_name|json_script:"company_name" }}
+    {{ bidding_price|json_script:"bidding_price" }}
+    {{ share_count|json_script:"share_count" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        var buy_sell = JSON.parse(document.getElementById('buy_sell').textContent);
+        var company_name = JSON.parse(document.getElementById('company_name').textContent);
+        var bidding_price = JSON.parse(document.getElementById('bidding_price').textContent);
+        var share_count = JSON.parse(document.getElementById('share_count').textContent);
+
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -22,6 +31,13 @@
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
+
+            buy_sell=data.buy_sell
+            company_name=data.company_name
+            bidding_price=data.bidding_price
+            share_count=data.share_count
+
+
             document.querySelector('#chat-log').value += (data.message + '\n');
         };
 
@@ -40,7 +56,11 @@
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'buy_sell':buy_sell,
+                'company_name':company_name,
+                'bidding_price':bidding_price,
+                'share_count':share_count,
             }));
             messageInputDom.value = '';
         };

@@ -11,13 +11,13 @@ import random
 from .models import *
 from .matchUtilities import *
 from .utility import *
-# Create your views here.
+
 buyTable = None
 sellTable = None
 
 
 class Register(View):
-    template = 'trading/register.html'
+    template = "trading/register.html"
 
     def get(self, request):
         return render(request, self.template, {})
@@ -28,8 +28,7 @@ class Register(View):
             g = Global.objects.get(pk=1)
             print(g.registrationKey)
             if request.POST["password"] == g.registrationKey:
-                user = User.objects.create_user(
-                    username=request.POST["username"])
+                user = User.objects.create_user(username=request.POST["username"])
                 password = User.objects.make_random_password(length=6)
                 user.set_password(password)
                 user.save()
@@ -37,20 +36,18 @@ class Register(View):
                 profile = Profile.objects.create(user=user)
                 profile.save()
                 return render(request, self.template, {"pass": password})
-            return render(request, self.template,
-                          {"error": "Invalid Registration"})
+            return render(request, self.template, {"error": "Invalid Registration"})
         except IntegrityError:
-            return render(request, self.template,
-                          {"error": "Invalid Registration"})
+            return render(request, self.template, {"error": "Invalid Registration"})
 
 
 class Login(View):
-    template = 'trading/login.html'
-    template1 = 'trading/index.html'
+    template = "trading/login.html"
+    template1 = "trading/index.html"
 
     def get(self, request):
         if request.user.is_authenticated:
-            return redirect('../')
+            return redirect("../")
         return render(request, self.template, {})
 
     def post(self, request):
@@ -84,14 +81,13 @@ def Logoff(request):
 
 
 class postlogin(View):
-    template = 'trading/index.html'
+    template = "trading/index.html"
 
     def get(self, request):
         if not request.user.is_authenticated:
-            return redirect('/login')
+            return redirect("/login")
         all_companies = Company.objects.all()
-        profile = Profile.objects.filter(user=User.objects.get(
-            username=request.user)).first()
+        profile = Profile.objects.filter(user=User.objects.get(username=request.user)).first()
         shares = UserShareTable.objects.filter(profile=profile)
         sensex = Global.objects.filter(pk=1).first().sensex
         g = Global.objects.get(pk=1)
@@ -100,31 +96,26 @@ class postlogin(View):
             "profile": profile,
             "userShareTable": shares,
             "sensex": sensex,
-            "livetext": g.LiveText
+            "livetext": g.LiveText,
         }
         return render(request, self.template, context)
 
+
 class Buy(View):
-    template = 'trading/buy.html'
-    error = 'trading/marketclose.html'
+    template = "trading/buy.html"
+    error = "trading/marketclose.html"
     context = {}
 
     # ToDo: Add validations in frontend
     def get(self, request):
         startStopMarket = Global.objects.get(pk=1).startStopMarket
         if startStopMarket:
-            profile = Profile.objects.filter(user=User.objects.get(
-                username=request.user)).first()
+            profile = Profile.objects.filter(user=User.objects.get(username=request.user)).first()
             sensex = Global.objects.filter(pk=1).first().sensex
             companies = list(Company.objects.all())
             random.shuffle(companies)
             bidRange = Global.objects.filter(pk=1).first().bidRangePercent
-            context = {
-                'companies': companies,
-                "profile": profile,
-                "sensex": sensex,
-                "bidRange": bidRange
-            }
+            context = {"companies": companies, "profile": profile, "sensex": sensex, "bidRange": bidRange}
             return render(request, self.template, context)
         else:
             return render(request, self.error)
@@ -133,13 +124,11 @@ class Buy(View):
         startStopMarket = Global.objects.get(pk=1).startStopMarket
 
         if startStopMarket:
-            companyName = request.POST["companyName"].split(' :')[0]
+            companyName = request.POST["companyName"].split(" :")[0]
             company = Company.objects.get(name__contains=companyName)
-            profile = Profile.objects.filter(user=User.objects.get(
-                username=request.user)).first()
+            profile = Profile.objects.filter(user=User.objects.get(username=request.user)).first()
             sensex = Global.objects.filter(pk=1).first().sensex
-            bidRange = Global.objects.filter(
-                pk=1).first().bidRangePercent / 100
+            bidRange = Global.objects.filter(pk=1).first().bidRangePercent / 100
             bidShares = 0
             bidPrice = 0
             exec("global buyTable; buyTable = BuyTable_" + company.tempName)
@@ -150,50 +139,49 @@ class Buy(View):
                 else:
                     companies = Company.objects.all()
                     context = {
-                        'companies': companies,
+                        "companies": companies,
                         "bidRange": bidRange,
                         "message": "Please Fill All The Fields",
                         "profile": profile,
-                        "sensex": sensex
+                        "sensex": sensex,
                     }
                     return render(request, self.template, context)
             except:
                 companies = Company.objects.all()
                 context = {
-                    'companies': companies,
+                    "companies": companies,
                     "bidRange": bidRange,
                     "message": "Invalid Bid",
                     "profile": profile,
-                    "sensex": sensex
+                    "sensex": sensex,
                 }
                 return render(request, self.template, context)
 
-            if 0 < bidShares <= 100 and bidPrice > 0 and (
-                    1 - bidRange
-            ) * company.sharePrice <= bidPrice <= (
-                    1 + bidRange
-            ) * company.sharePrice and profile.cash > 0 and profile.cash >= bidShares * bidPrice * 1.01:
-                #moneyAlter(profile, bidPrice * bidShares, False)  # Subtract money for user
+            if (
+                0 < bidShares <= 100
+                and bidPrice > 0
+                and (1 - bidRange) * company.sharePrice <= bidPrice <= (1 + bidRange) * company.sharePrice
+                and profile.cash > 0
+                and profile.cash >= bidShares * bidPrice * 1.01
+            ):
+                # moneyAlter(profile, bidPrice * bidShares, False)  # Subtract money for user
 
-                moneyAlter(profile, bidPrice * bidShares,
-                           False)  # Subtract money for user
+                moneyAlter(profile, bidPrice * bidShares, False)  # Subtract money for user
                 buyTable.objects.create(
-                    company=company.pk,
-                    profile=profile,
-                    bidShares=bidShares,
-                    bidPrice=bidPrice)  # Add entry to buyTable
+                    company=company.pk, profile=profile, bidShares=bidShares, bidPrice=bidPrice
+                )  # Add entry to buyTable
 
-                match.delay(company, profile, bidPrice, bidShares, True)
+                # match.delay(company, profile, bidPrice, bidShares, True)
 
-                return render(request, 'trading/received_bid.html', {})
+                return render(request, "trading/received_bid.html", {})
             else:
                 companies = Company.objects.all()
                 context = {
-                    'companies': companies,
+                    "companies": companies,
                     "bidRange": bidRange,
                     "message": "Invalid Bid",
                     "profile": profile,
-                    "sensex": sensex
+                    "sensex": sensex,
                 }
                 return render(request, self.template, context)
         else:
@@ -201,8 +189,8 @@ class Buy(View):
 
 
 class Sell(View):
-    template = 'trading/sell.html'
-    error = 'trading/marketclose.html'
+    template = "trading/sell.html"
+    error = "trading/marketclose.html"
 
     # ToDo: Add validations in frontend
     def get(self, request):
@@ -210,18 +198,11 @@ class Sell(View):
         if startStopMarket:
             companies = []
             user = User.objects.get(username=request.user)
-            profile = Profile.objects.filter(user=User.objects.get(
-                username=request.user)).first()
+            profile = Profile.objects.filter(user=User.objects.get(username=request.user)).first()
             sensex = Global.objects.filter(pk=1).first().sensex
-            userShares = UserShareTable.objects.filter(
-                profile=Profile.objects.filter(user=user).first())
+            userShares = UserShareTable.objects.filter(profile=Profile.objects.filter(user=user).first())
             bidRange = Global.objects.filter(pk=1).first().bidRangePercent
-            context = {
-                'userShares': userShares,
-                "profile": profile,
-                "sensex": sensex,
-                "bidRange": bidRange
-            }
+            context = {"userShares": userShares, "profile": profile, "sensex": sensex, "bidRange": bidRange}
             return render(request, self.template, context)
         else:
             return render(request, self.error)
@@ -229,14 +210,12 @@ class Sell(View):
     def post(self, request):
         startStopMarket = Global.objects.get(pk=1).startStopMarket
         if startStopMarket:
-            companyName = request.POST["companyName"].split(' :')[0]
+            companyName = request.POST["companyName"].split(" :")[0]
             company = Company.objects.get(name__contains=companyName)
-            profile = Profile.objects.filter(user=User.objects.get(
-                username=request.user)).first()
+            profile = Profile.objects.filter(user=User.objects.get(username=request.user)).first()
 
             sensex = Global.objects.filter(pk=1).first().sensex
-            bidRange = Global.objects.filter(
-                pk=1).first().bidRangePercent / 100
+            bidRange = Global.objects.filter(pk=1).first().bidRangePercent / 100
             bidShares = 0
             bidPrice = 0
             exec("global sellTable; sellTable = SellTable_" + company.tempName)
@@ -248,33 +227,34 @@ class Sell(View):
                 else:
                     userShares = UserShareTable.objects.filter(profile=profile)
                     context = {
-                        'userShares': userShares,
+                        "userShares": userShares,
                         "bidRange": bidRange,
-                        'message': "Please Fill All The Fields",
+                        "message": "Please Fill All The Fields",
                         "profile": profile,
-                        "sensex": sensex
+                        "sensex": sensex,
                     }
                     return render(request, self.template, context)
             except:
                 userShares = UserShareTable.objects.filter(profile=profile)
                 context = {
-                    'userShares': userShares,
+                    "userShares": userShares,
                     "bidRange": bidRange,
-                    'message': "Invalid Bid",
+                    "message": "Invalid Bid",
                     "profile": profile,
-                    "sensex": sensex
+                    "sensex": sensex,
                 }
                 return render(request, self.template, context)
 
-            sharesAvailable = UserShareTable.objects.filter(
-                profile=profile, company=company).first().bidShares
-            if bidPrice > 0 and 0 < bidShares <= sharesAvailable and (
-                    1 - bidRange) * company.sharePrice <= bidPrice <= (
-                        1 + bidRange) * company.sharePrice:
+            sharesAvailable = UserShareTable.objects.filter(profile=profile, company=company).first().bidShares
+            if (
+                bidPrice > 0
+                and 0 < bidShares <= sharesAvailable
+                and (1 - bidRange) * company.sharePrice <= bidPrice <= (1 + bidRange) * company.sharePrice
+            ):
 
                 u = UserShareTable.objects.filter(
-                    company=company, profile=profile).first(
-                    )  # Get entry in userShareTable to remove shares
+                    company=company, profile=profile
+                ).first()  # Get entry in userShareTable to remove shares
                 if bidShares < u.bidShares:
                     # Check If selling lesser number of shares than present
                     u.bidShares -= bidShares
@@ -282,25 +262,24 @@ class Sell(View):
                 elif bidShares == u.bidShares:
                     u.delete()
                 sellTable.objects.create(
-                    company=company.pk,
-                    profile=profile,
-                    bidShares=bidShares,
-                    bidPrice=bidPrice)  # Create a sellTable Entry
+                    company=company.pk, profile=profile, bidShares=bidShares, bidPrice=bidPrice
+                )  # Create a sellTable Entry
                 match.delay(company, profile, bidPrice, bidShares, False)
 
-                return render(request, 'trading/received_bid.html', {})
+                return render(request, "trading/received_bid.html", {})
             else:
                 userShares = UserShareTable.objects.filter(profile=profile)
                 context = {
-                    'userShares': userShares,
+                    "userShares": userShares,
                     "bidRange": bidRange,
-                    'message': "Invalid Bid",
+                    "message": "Invalid Bid",
                     "profile": profile,
-                    "sensex": sensex
+                    "sensex": sensex,
                 }
                 return render(request, self.template, context)
         else:
             return render(request, self.error)
+
 
 def getPendingTransactions(profile):
     pending_buy_transactions = []
@@ -309,41 +288,37 @@ def getPendingTransactions(profile):
         exec("global buyTable; buyTable = BuyTable_" + company.tempName)
         exec("global sellTable; sellTable = SellTable_" + company.tempName)
         for buy_transaction in buyTable.objects.filter(profile=profile):
-            pending_buy_transactions.append({
-                'company':
-                Company.objects.get(pk=buy_transaction.company),
-                'bidShares':
-                buy_transaction.bidShares,
-                'bidPrice':
-                buy_transaction.bidPrice
-            })
+            pending_buy_transactions.append(
+                {
+                    "company": Company.objects.get(pk=buy_transaction.company),
+                    "bidShares": buy_transaction.bidShares,
+                    "bidPrice": buy_transaction.bidPrice,
+                }
+            )
         for sell_transaction in sellTable.objects.filter(profile=profile):
-            pending_sell_transactions.append({
-                'company':
-                Company.objects.get(pk=sell_transaction.company),
-                'bidShares':
-                sell_transaction.bidShares,
-                'bidPrice':
-                sell_transaction.bidPrice
-            })
+            pending_sell_transactions.append(
+                {
+                    "company": Company.objects.get(pk=sell_transaction.company),
+                    "bidShares": sell_transaction.bidShares,
+                    "bidPrice": sell_transaction.bidPrice,
+                }
+            )
     return pending_buy_transactions, pending_sell_transactions
 
 
 class Transactions(View):
-    template = 'trading/transactions.html'
+    template = "trading/transactions.html"
 
     def get(self, request):
-        profile = Profile.objects.filter(user=User.objects.get(
-            username=request.user)).first()
+        profile = Profile.objects.filter(user=User.objects.get(username=request.user)).first()
         sensex = Global.objects.filter(pk=1).first().sensex
         completed_transactions = UserHistory.objects.filter(profile=profile)
-        pending_buy_transactions, pending_sell_transactions = getPendingTransactions(
-            profile)
+        pending_buy_transactions, pending_sell_transactions = getPendingTransactions(profile)
         context = {
             "profile": profile,
             "sensex": sensex,
             "completed_transactions": completed_transactions,
             "pending_buy_transactions": pending_buy_transactions,
-            "pending_sell_transactions": pending_sell_transactions
+            "pending_sell_transactions": pending_sell_transactions,
         }
         return render(request, self.template, context)

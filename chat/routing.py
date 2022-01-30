@@ -1,7 +1,13 @@
 from django.urls import re_path
-
+from django.conf.urls import url
+from channels.routing import ChannelNameRouter
+from django.urls import path
 from . import consumers
 
 websocket_urlpatterns = [
-    re_path(r'ws/app/(?P<room_name>\w+)/$', consumers.ChatConsumer.as_asgi()),
-]
+    path('ws/app/<str:room_name>/', consumers.ChatConsumer.as_asgi()),
+]   
+
+# ChannelNameRouter({
+#     "roomchat": consumers.ChatConsumer.as_asgi(),
+# })
