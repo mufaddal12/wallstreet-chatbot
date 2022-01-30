@@ -48,7 +48,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
             return True
 
     else:
-        exec("global sellTable; sellTable = SellTable_" + company.tempName)
+        exec("global sellTable; sellTable = SellTable_" + company1.tempName)
 
         sharesAvailable = UserShareTable.objects.filter(profile=profile1, company=company1).first()
         if sharesAvailable is None:
