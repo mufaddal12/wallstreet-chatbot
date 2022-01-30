@@ -1,15 +1,49 @@
+{%load static%}
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
+    
     <title>Chat Room</title>
-    <style> 
-    body {
+ 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="{% static 'trading/vendor/bootstrap/css/bootstrap.min.css'%}">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <!-- Google fonts - Popppins for copy-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+    <!-- orion icons-->
+    <link rel="stylesheet" href="{% static 'trading/css/orionicons.css'%}">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="{% static 'trading/css/style.default.css'%}" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="{% static 'trading/css/custom.css'%}">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'trading/img/favicon.png'%}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
+
+
+    <style type="text/css">
+        #loading {
+            width: 100%;
+            height: 100vh;
+            background: #000;
+        }
+        
+        .page-holder {
+            background: url('{% static 'trading/img/1.png'%}');
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        body {
   font-family: sans-serif !important;
 }
-.bg-funky	{
-  background: #667e96;
-}	
+
 
 .heading {
   color: #fff;
@@ -137,20 +171,7 @@ img {max-width: 100%;}
   margin-bottom: 20px;
   margin-top: 20px;
 }
-#theInput
-{
-   border:solid 1px green;
-   height: 20px;
-   line-height: 20px;
-   vertical-align: middle
-}
-#theButton
-{
-   border: solid 1px green;
-   height: 22px;
-   line-height: 22px;
-   vertical-align: middle
-}
+
 
 .credit a {
   color: #fff;
@@ -158,95 +179,159 @@ img {max-width: 100%;}
   letter-spacing: 2px;
   border-bottom: dotted 1px;
 }
-        
-        </style>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
-    
-    
+    </style>
+   
+   
 </head>
 
-    <body class="bg-funky">
-        <div class="container">
-        <h3 class="heading text-center">Chat with your broker</h3>
-        <div class="messaging">
-              <div class="inbox_msg">
-        
-                <div class="mesgs">
-                  <div class="msg_history">
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                          <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                      </div>
-                    </div>
-                    <div class="outgoing_msg">
-                      <div class="sent_msg">
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                        <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                    </div>
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>Test, which is a new approach to have</p>
-                          <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                      </div>
-                    </div>
-                    <div class="outgoing_msg">
-                      <div class="sent_msg">
-                        <p>Apollo University, Delhi, India Test</p>
-                        <span class="time_date"> 11:01 AM    |    Today</span> </div>
-                    </div>
-                    <div class="incoming_msg">
-                      <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                      <div class="received_msg">
-                        <div class="received_withd_msg">
-                          <p>We work directly with our designers and suppliers,
-                            and sell direct to you, which means quality, exclusive
-                            products, at a price anyone can afford.</p>
-                          <span class="time_date"> 11:01 AM    |    Today</span></div>
-                      </div>
-                    </div>
-                  </div>
-        
-                </div>
-              
-            
-          </div>
-          </div>
-          
-          <div id="main_search">
-            <input id="chat-message-input" style="width: 90%; padding:10px;" type="text" placeholder="Enter your message here" /><input id="chat-message-submit" style="width:10%; background-color: #6ac241; height: 50px;"type="button" value="Send">
-              
-        </div>
-      </div>
+<body onload="start()">
+    <div id="loading"></div>
+    <!-- navbar-->
+    <header class="header">
+        <nav class="navbar sticky-top navbar-expand-lg px-4 py-2 bg-white shadow">
+        <a href="#" class="sidebar-toggler text-gray-500 mr-4 mr-lg-5 lead">
+        <i class="fas fa-align-left"></i></a>
+        <a href="#" class="navbar-brand font-weight-bold text-uppercase text-base">Wallstreet</a>
+            <ul class="ml-auto d-flex align-items-center list-unstyled mb-0">
 
-          <!-- <form>
-            <div class="form-group">
-                <label for=""></label>
-                <input class="form-control "
-                       type="text"
-                       placeholder="Enter your message here">
-            </div>
-            <div class="form-group">
-                <button class="btn btn-success btn-lg float-right"
-                        type="submit">
-                     Send
-                </button>
-            </div>
-        </form> -->
-          <!-- <input id="chat-message-input" id="theInput" type="text" size="100" placeholder="Enter Your Message"><br>
-          <input id="chat-message-submit" id="theButton" type="button" value="Send"> -->
-          
+                
+                <li class="nav-item dropdown ml-auto">
+                    <a id="userInfo" href="http://example.com" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle"><img src="{% static 'trading/img/navLogo.png' %}" alt="Jason Doe" style="max-width: 1.5rem;" class="img-fluid rounded-circle shadow"></a>
+                    <div aria-labelledby="userInfo" class="dropdown-menu"><a href="#" class="dropdown-item"><strong class="d-block text-uppercase headings-font-family">{{ profile.user.username }}</strong><small>Cash: {{ profile.cash }}</small><br/><small>Net Worth: {{ profile.netWorth }}</small></a>
+                        <div class="dropdown-divider"></div><a href="../#sectionMyShares" class="dropdown-item">Your Shares</a>
+                        <div class="dropdown-divider"></div><a href="{% url 'trading:transactions' %}" class="dropdown-item">Transaction History</a>
+                        <div class="dropdown-divider"></div><a href="{%url 'trading:logoff'%}" class="dropdown-item">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    
+    <div class="d-flex align-items-stretch">
+        <div id="sidebar" class="sidebar py-3">
+            <ul class="sidebar-menu list-unstyled" style="margin-left:-15px;">
+                <li class="sidebar-list-item"><a href="{%url 'trading:index' %}" class="sidebar-link text-muted"><i class="o-home-1 mr-3 text-gray"></i><span>Home</span></a></li>
+                <li class="sidebar-list-item"><a href="../#sectionMyShares" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Your Shares</span></a></li>
+                <li class="sidebar-list-item"><a href="{%url 'trading:buy' %}" class="sidebar-link text-muted "><i class="o-sales-up-1 mr-3 text-gray"></i><span>Buy</span></a></li>
+                
+                <li class="sidebar-list-item"><a href="{%url 'trading:sell' %}" class="sidebar-link text-muted"><i class="o-sales-up-1 mr-3 text-gray"></i><span>Sell</span></a></li>
+                <li class="sidebar-list-item">
+                    <a href="{% url 'chat:room' %}" class="sidebar-link text-muted active"
+                      ><i class="far fa-comment mr-3 text-gray"></i><span>Chat</span></a
+                    >
+                  </li>
+                <li class="sidebar-list-item"><a href="{%url 'trading:transactions' %}" class="sidebar-link text-muted"><i class="o-table-content-1 mr-3 text-gray"></i><span>Transactions</span></a></li>
+
+                <li class="sidebar-list-item"><a href="{%url 'trading:logoff'%}" class="sidebar-link text-muted"><i class="o-exit-1 mr-3 text-gray"></i><span>Logout</span></a></li>
+            </ul>
+
+        </div>
+
+        
+
+        <div class="page-holder w-100 d-flex flex-wrap">
+            <!-- <div class="container-fluid px-xl-5">
+                <section class="py-5">
+
+                    <div class="row d-flex justify-content-center align-items-center">
+
+                        
+                                <textarea id="chat-log" cols="100" style="width:62%;"rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" style="width: 55%; padding: 5px;" placeholder="Enter your message here " size="100"><br>
+    <input id="chat-message-submit" type="button" style="background-color: rgb(60, 196, 100); height: 40px; width:80px;" value="Send">
+                                
+                                
+                             
+                           
+                    </div>
+                </section>
+            </div> -->
+            <div class="container">
+                <h3 class="heading text-center">Chat with your broker</h3>
+                <div class="messaging">
+                      <div class="inbox_msg">
+                
+                        <div class="mesgs">
+                          <div class="msg_history">
+                            <div class="incoming_msg">
+                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                              <div class="received_msg">
+                                <div class="received_withd_msg">
+                                  <p id="chat1">Hello</p>
+                              </div>
+                            </div>
+                            <div class="outgoing_msg">
+                              <div class="sent_msg">
+                                <p id="chat2">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                                 </div>
+                            </div>
+                            <div class="incoming_msg">
+                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                              <div class="received_msg">
+                                <div class="received_withd_msg">
+                                  <p>Test, which is a new approach to have</p>
+                                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
+                              </div>
+                            </div>
+                            <div class="outgoing_msg">
+                              <div class="sent_msg">
+                                <p>Apollo University, Delhi, India Test</p>
+                                <span class="time_date"> 11:01 AM    |    Today</span> </div>
+                            </div>
+                            <div class="incoming_msg">
+                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                              <div class="received_msg">
+                                <div class="received_withd_msg">
+                                  <p>We work directly with our designers and suppliers,
+                                    and sell direct to you, which means quality, exclusive
+                                    products, at a price anyone can afford.</p>
+                                  <span class="time_date"> 11:01 AM    |    Today</span></div>
+                              </div>
+                            </div>
+                          </div>
+                
+                        </div>
+                      
+                    
+                  </div>
+                  </div>
+                  
+                  <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Message" id="chat-message-input">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <a class="button is-info" id="chat-message-submit">Submit</a>
+                    </div>
+                </div>
+              </div>
+            <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6 text-center text-md-left text-primary">
+                            
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
     {{ room_name|json_script:"room-name" }}
+    {{ buy_sell|json_script:"buy_sell" }}
+    {{ company_name|json_script:"company_name" }}
+    {{ bidding_price|json_script:"bidding_price" }}
+    {{ share_count|json_script:"share_count" }}
     <script>
         const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        var buy_sell = JSON.parse(document.getElementById('buy_sell').textContent);
+        var company_name = JSON.parse(document.getElementById('company_name').textContent);
+        var bidding_price = JSON.parse(document.getElementById('bidding_price').textContent);
+        var share_count = JSON.parse(document.getElementById('share_count').textContent);
+
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -258,7 +343,30 @@ img {max-width: 100%;}
 
         chatSocket.onmessage = function(e) {
             const data = JSON.parse(e.data);
-            document.querySelector('#chat-log').value += (data.message + '\n');
+
+            buy_sell=data.buy_sell
+            company_name=data.company_name
+            bidding_price=data.bidding_price
+            share_count=data.share_count
+
+            if (data.message) {
+              
+              document.querySelector('#chat-messages').innerHTML += ('</b>: ' + data.message + '<br>');
+              document.querySelector('#chat-messages').innerHTML += ('</b>: ' + data.message1 + '<br>');
+              document.getElementById('chat1').innerHTML=document.getElementById('chat2').innerHTML;
+              document.getElementById('chat2').innerHTML=data.message;
+              document.getElementById('chat1').save();
+
+          } else {
+              alert('The message is empty!');
+          }
+
+          scrollToBottom();
+              
+          document.querySelector('#chat-log').value += (data.message + '\n');
+          document.querySelector('#chat-log').value += (data.message1 + '\n');
+
+
         };
 
         chatSocket.onclose = function(e) {
@@ -276,7 +384,12 @@ img {max-width: 100%;}
             const messageInputDom = document.querySelector('#chat-message-input');
             const message = messageInputDom.value;
             chatSocket.send(JSON.stringify({
-                'message': message
+                'message': message,
+                'buy_sell':buy_sell,
+                'company_name':company_name,
+                'bidding_price':bidding_price,
+                'share_count':share_count,
+                'message2':message2
             }));
             messageInputDom.value = '';
         };

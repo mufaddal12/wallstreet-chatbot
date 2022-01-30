@@ -89,7 +89,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         message = text_data_json["message"]
 
         # create message object for user who sends message
-        create_message(message, int(self.room_name))
+        await create_message(message, int(self.room_name))
 
         buy_sell = text_data_json["buy_sell"]  # 0
         company_name = text_data_json["company_name"]  # default
@@ -119,23 +119,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             share_count = val
                             # TODO: add bidding to the database
                             if await add_bidding(int(self.room_name), buy_sell, company_name, share_count, bidding_price):
-                                message = "Your bid has been added to the database!"
+                                message1 = "Your bid has been added to the database!"
                             else:
-                                message= "Your bid is invalid"
+                                message1= "Your bid is invalid"
                         except:
-                            message = "Enter proper value!"
+                            message1 = "Enter proper value!"
                             print(traceback.format_exc())
                 else:
                     for i in message.split():
                         try:
                             val = float(i)
                             bidding_price = val
-                            if buy_sell:
-                                message = "How many number of shares do you want to buy?"
-                            else:
-                                message = "How many number of shares do you want to sell?"
+                            if buy_sell==1:
+                                message1 = "How many number of shares do you want to buy?"
+                            elif buy_sell==-1:
+                                message1 = "How many number of shares do you want to sell?"
                         except:
-                            message = "Enter proper value!"
+                            message1 = "Enter proper value!"
             else:
                 for i in message.split():
                     print(i)
@@ -147,14 +147,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
                 if company_name != "default":
                     if buy_sell == 1:
-                        message = "What's the price you want to buy the shares at? (price per share)"
+                        message1 = "What's the price you want to buy the shares at? (price per share)"
                     else:
-                        message = "What's the price you want to sell the shares at? (price per share)"
+                        message1 = "What's the price you want to sell the shares at? (price per share)"
                 else:
                     if buy_sell == 1:
-                        message = "Which company shares do you want to buy?"
+                        message1 = "Which company shares do you want to buy?"
                     else:
-                        message = "Which company shares do you want to sell?"
+                        message1 = "Which company shares do you want to sell?"
         else:
             for i in message.split():
                 if i in buy_keywords and buy_sell == 0:
@@ -164,10 +164,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 elif await IsCompany(i.lower().capitalize()) and company_name != "default":
                     company_name = Company.objects.filter(name__contains=company_name).first().name
             if buy_sell == 0:
-                message = "Do you want to buy or sell shares?"
+                message1 = "Do you want to buy or sell shares?"
 
         # create message object for admin for self-generated message
-        create_message(message, get_admin_id())
+        await create_message(message1, get_admin_id())
 
         context = {
             "buy_sell": buy_sell,
@@ -180,6 +180,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             {
                 "type": "chat_message",
                 "message": message,
+                "message1":message1
             }
         )
 
@@ -193,6 +194,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         company_name = event["company_name"]
         bidding_price = event["bidding_price"]
         share_count = event["share_count"]
+        message1=event["message1"]
 
         # Send company_name to WebSocket
         await self.send(
@@ -203,6 +205,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     "company_name": company_name,
                     "bidding_price": bidding_price,
                     "share_count": share_count,
+                    "message1":message1
                 }
             )
         )

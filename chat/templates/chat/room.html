@@ -1,28 +1,27 @@
 {%load static%}
 <!DOCTYPE html>
-<html>
 
-<head>
-    <meta charset="utf-8">
-    
-    <title>Chat Room</title>
- 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="{% static 'trading/vendor/bootstrap/css/bootstrap.min.css'%}">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <!-- Google fonts - Popppins for copy-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
-    <!-- orion icons-->
-    <link rel="stylesheet" href="{% static 'trading/css/orionicons.css'%}">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="{% static 'trading/css/style.default.css'%}" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="{% static 'trading/css/custom.css'%}">
-    <!-- Favicon-->
-    <link rel="shortcut icon" href="{% static 'trading/img/favicon.png'%}">
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Chatroom</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="all,follow">
+        <!-- Bootstrap CSS-->
+        <link rel="stylesheet" href="{% static 'trading/vendor/bootstrap/css/bootstrap.min.css'%}">
+        <!-- Font Awesome CSS-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <!-- Google fonts - Popppins for copy-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,800">
+        <!-- orion icons-->
+        <link rel="stylesheet" href="{% static 'trading/css/orionicons.css'%}">
+        <!-- theme stylesheet-->
+        <link rel="stylesheet" href="{% static 'trading/css/style.default.css'%}" id="theme-stylesheet">
+        <!-- Custom stylesheet - for your changes-->
+        <link rel="stylesheet" href="{% static 'trading/css/custom.css'%}">
+        <!-- Favicon-->
+        <link rel="shortcut icon" href="{% static 'trading/img/favicon.png'%}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.2/css/bulma.min.css">
 
 
     <style type="text/css">
@@ -179,10 +178,7 @@ img {max-width: 100%;}
   border-bottom: dotted 1px;
 }
     </style>
-   
-   
 </head>
-
 <body onload="start()">
     <div id="loading"></div>
     <!-- navbar-->
@@ -239,80 +235,48 @@ img {max-width: 100%;}
                                 <textarea id="chat-log" cols="100" style="width:62%;"rows="20"></textarea><br>
     <input id="chat-message-input" type="text" style="width: 55%; padding: 5px;" placeholder="Enter your message here " size="100"><br>
     <input id="chat-message-submit" type="button" style="background-color: rgb(60, 196, 100); height: 40px; width:80px;" value="Send">
-                                
-                                
-                             
-                           
-                    </div>
+                                </div>
                 </section>
             </div> -->
+            
+        <section class="section">
             <div class="container">
-                <h3 class="heading text-center">Chat with your broker</h3>
-                <div class="messaging">
-                      <div class="inbox_msg">
-                
-                        <div class="mesgs">
-                          <div class="msg_history">
-                            <div class="incoming_msg">
-                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                              <div class="received_msg">
-                                <div class="received_withd_msg">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-                                  <span class="time_date"> 11:01 AM    |    June 9</span></div>
-                              </div>
+                <div class="columns is-multiline">
+                    <div class="column is-6 is-offset-3 mb-6">
+                        <section class="hero is-primary">
+                            <div class="hero-body">
+                                <p class="title">
+                                    Broker Chat
+                                </p>
+                                <p class="subtitle">
+                                    
+                                </p>
                             </div>
-                            <div class="outgoing_msg">
-                              <div class="sent_msg">
-                                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
-                                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-                            </div>
-                            <div class="incoming_msg">
-                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                              <div class="received_msg">
-                                <div class="received_withd_msg">
-                                  <p>Test, which is a new approach to have</p>
-                                  <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
-                              </div>
-                            </div>
-                            <div class="outgoing_msg">
-                              <div class="sent_msg">
-                                <p>Apollo University, Delhi, India Test</p>
-                                <span class="time_date"> 11:01 AM    |    Today</span> </div>
-                            </div>
-                            <div class="incoming_msg">
-                              <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                              <div class="received_msg">
-                                <div class="received_withd_msg">
-                                  <p>We work directly with our designers and suppliers,
-                                    and sell direct to you, which means quality, exclusive
-                                    products, at a price anyone can afford.</p>
-                                  <span class="time_date"> 11:01 AM    |    Today</span></div>
-                              </div>
-                            </div>
-                          </div>
-                
+                        </section>
+                    </div>
+
+                    <div class="column is-6 is-offset-3">
+                        <div class="box">
+                            <div id="chat-messages" style="max-height: 300px; overflow-y: scroll;">{% for m in messages %}<b>{{ m.author.user.first_name }}</b>: {{ m.message }}<br>{% endfor %}</div>
                         </div>
-                      
-                    
-                  </div>
-                  </div>
-                  
-                  <div id="main_search">
-                    <input id="chat-message-input" style="width: 90%; padding:10px;" type="text" placeholder="Enter your message here" /><input id="chat-message-submit" style="width:10%; background-color: #6ac241; height: 50px;"type="button" value="Send">
-                      
-                </div>
-              </div>
-            <footer class="footer bg-white shadow align-self-end py-3 px-xl-5 w-100">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6 text-center text-md-left text-primary">
-                            
+
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Message" id="chat-message-input">
+                            </div>
                         </div>
+
+                        <div class="field">
+                            <div class="control">
+                                <a class="button is-info" id="chat-message-submit">Submit</a>
+                            </div>
+                        </div>
+
+                        <small class="has-text-grey-light">Your username: {{ username }}</small>
                     </div>
                 </div>
-            </footer>
-        </div>
-    </div>
+            </div>
+        </section>
     {{ room_name|json_script:"room-name" }}
     {{ buy_sell|json_script:"buy_sell" }}
     {{ company_name|json_script:"company_name" }}
@@ -342,8 +306,19 @@ img {max-width: 100%;}
             bidding_price=data.bidding_price
             share_count=data.share_count
 
+            if (data.message) {
+                document.querySelector('#chat-messages').innerHTML += ('</b>: ' + data.message + '<br>');
+                document.querySelector('#chat-messages').innerHTML += ('</b>: ' + data.message1 + '<br>');
 
+            } else {
+                alert('The message is empty!');
+            }
+
+            scrollToBottom();
+                
             document.querySelector('#chat-log').value += (data.message + '\n');
+            document.querySelector('#chat-log').value += (data.message1 + '\n');
+
         };
 
         chatSocket.onclose = function(e) {
