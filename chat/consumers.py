@@ -48,6 +48,8 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
             return True
 
     else:
+        exec("global sellTable; sellTable = SellTable_" + company.tempName)
+
         sharesAvailable = UserShareTable.objects.filter(profile=profile1, company=company1).first()
         if sharesAvailable is None:
             sharesAvailable=0
@@ -65,7 +67,7 @@ def add_bidding(user_id, buy_sell, company, share_bid, share_bid_price):
                 u.save()
             elif share_bid == u.bidShares:
                 u.delete()
-            sellTable.objects.create(company=company1, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
+            sellTable.objects.create(company=company1.pk, profile=profile1, bidShares=share_bid, bidPrice=share_bid_price)
             
             return True
 
